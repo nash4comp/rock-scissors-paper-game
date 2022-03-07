@@ -47,31 +47,36 @@
     // 가위, 바위, 보는 좌표라는 공통점이 있다.
     // 따라서 객체를 만들어서 그룹화를 한다.
     const rspX = {
-      scissors: '0';
-      rock: '-220px';
+      scissors: '0',
+      rock: '-220px',
       paper: '-440px',
     };
 
-    let coord = '0';
+    let computerChoice = 'scissors';
     setInterval(() => {
-      if (coord === rspX.scissors) {  // 가위면 바위로 바꾼다.
-        coord = rspX.rock;
+      if (computerChoice === 'scissors') {  // 가위면 바위로 바꾼다.
+        computerChoice = 'rock';
         // 크롬에서 F12 눌러서 실제로 숫자값을 조정하면서 시뮬레이션 가능
         // 이미지의 가로위치와 세로위치를 지정한다.
-        $computer.style.background = `url(${IMG_URL}) ${rspx.rock} 0`;
+        $computer.style.background = `url(${IMG_URL}) ${rspX.rock} 0`;
         // auto: 가로 너비, 200px: 세로너비
         // background와 backgroundSize는 항상 같이 업데이트를 해줘야 한다.
         $computer.style.backgroundSize = 'auto 200px';
-        // 강좌 7-2 6:37분까지 들었음.
-      } else if (coord === rspX.rock) {
-        coord = rspX.paper;
-        $computer.style.background = `url(${IMG_URL}) ${rspx.paper} 0`;
+      } else if (computerChoice === 'rock') {
+        computerChoice = 'paper';
+        $computer.style.background = `url(${IMG_URL}) ${rspX.paper} 0`;
         $computer.style.backgroundSize = 'auto 200px';
-      } else {
-        coord = rspX.scissors;
-        $computer.style.background = `url(${IMG_URL}) ${rspx.scissors} 0`;
+      } else if (computerChoice === 'paper') {
+        computerChoice = 'scissors';
+
+        // rspX.computerChoice 하면 안된다. 이건 문자열이다. 즉, 이렇게 하면 scissors를 넣는다. 아래는 값이 들어가는 것이다.
+        // 객체에서 .을 찍는 것과 대괄호를 찍는 것을 잘 구분해야 한다.
+        $computer.style.background = `url(${IMG_URL}) ${rspX[computerChoice]} 0`;
         $computer.style.backgroundSize = 'auto 200px';
+      }
     }, 50);
+
+    
   </script>
 
 </body>
