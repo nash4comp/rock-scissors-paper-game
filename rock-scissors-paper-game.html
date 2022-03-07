@@ -1,17 +1,79 @@
 <!-- 
 1. 순서도를 항상 그려라
 2. 자바스크립트의 내용을 바뀠으면, 화면도 업데이트를 해라.
+
  -->
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Rock Scissors Paper Game</title>
+  <style>
+    #computer {
+      /* 
+      이미지가 너무 커서 높이 부분은 200px로 고정을 해줬다.
+      rsp.png 이미지의 width를 조정함으로써 옆 부분을 짤랐다. */
+      width: 142px;
+      height: 200px;
+    }
+  </style>
 </head>
+
 <body>
-  
+  <div id="computer"></div>
+  <div>
+    <button id="scissors" class="btn">Scissors</button>
+    <button id="rock" class="btn">Rock</button>
+    <button id="paper" class="btn">Paper</button>
+  </div>
+  <div id="score">0</div>
+
+  <script>
+    const $computer = document.querySelector('#computer');
+    const $score = document.querySelector('#score');
+    const $scissors = document.querySelector('#scissors');
+    const $paper = document.querySelector('#paper');
+    const $rock = document.querySelector('rock');
+    // 아래 경로에서 .을 생략하면 절대경로로 설정된다. 즉, C:의 루트 경로로 설정된다.
+    // 여러개 이미지를 동시에 가져오는 것이 보다 효율적이다. 다만, 이럴 경우 짤라줘야 한다.
+    // 이렇게 하는 것을 이미지 스프라이트(Image sprite)라고 한다.
+    const IMG_URL = './rsp.png';
+
+    // 여러개의 값들을 객체로 묶을려면 공통점을 찾아야 한다.
+    // 가위, 바위, 보는 좌표라는 공통점이 있다.
+    // 따라서 객체를 만들어서 그룹화를 한다.
+    const rspX = {
+      scissors: '0';
+      rock: '-220px';
+      paper: '-440px',
+    };
+
+    let coord = '0';
+    setInterval(() => {
+      if (coord === rspX.scissors) {  // 가위면 바위로 바꾼다.
+        coord = rspX.rock;
+        // 크롬에서 F12 눌러서 실제로 숫자값을 조정하면서 시뮬레이션 가능
+        // 이미지의 가로위치와 세로위치를 지정한다.
+        $computer.style.background = `url(${IMG_URL}) ${rspx.rock} 0`;
+        // auto: 가로 너비, 200px: 세로너비
+        // background와 backgroundSize는 항상 같이 업데이트를 해줘야 한다.
+        $computer.style.backgroundSize = 'auto 200px';
+        // 강좌 7-2 6:37분까지 들었음.
+      } else if (coord === rspX.rock) {
+        coord = rspX.paper;
+        $computer.style.background = `url(${IMG_URL}) ${rspx.paper} 0`;
+        $computer.style.backgroundSize = 'auto 200px';
+      } else {
+        coord = rspX.scissors;
+        $computer.style.background = `url(${IMG_URL}) ${rspx.scissors} 0`;
+        $computer.style.backgroundSize = 'auto 200px';
+    }, 50);
+  </script>
+
 </body>
+
 </html>
